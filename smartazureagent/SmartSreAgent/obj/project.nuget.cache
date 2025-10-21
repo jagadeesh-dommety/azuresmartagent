@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "dgSpecHash": "7oj4UiNn2dU=",
+  "success": true,
+  "projectFilePath": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj",
+  "expectedPackageFiles": [
+    "/Users/jagadeeshdommety/.nuget/packages/azure.core/1.49.0/azure.core.1.49.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/azure.identity/1.17.0/azure.identity.1.17.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.aspnetcore.openapi/8.0.13/microsoft.aspnetcore.openapi.8.0.13.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.bcl.asyncinterfaces/8.0.0/microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.3/microsoft.extensions.logging.abstractions.8.0.3.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.identity.client/4.76.0/microsoft.identity.client.4.76.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.identity.client.extensions.msal/4.76.0/microsoft.identity.client.extensions.msal.4.76.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.identitymodel.abstractions/6.35.0/microsoft.identitymodel.abstractions.6.35.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/swashbuckle.aspnetcore/6.6.2/swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/swashbuckle.aspnetcore.swagger/6.6.2/swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.6.2/swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.6.2/swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/system.clientmodel/1.7.0/system.clientmodel.1.7.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/system.diagnostics.diagnosticsource/6.0.1/system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/system.memory.data/8.0.1/system.memory.data.8.0.1.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/Users/jagadeeshdommety/.nuget/packages/system.security.cryptography.protecteddata/4.5.0/system.security.cryptography.protecteddata.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

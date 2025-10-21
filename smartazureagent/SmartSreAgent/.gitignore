@@ -1,0 +1,99 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]uild[Ll]og.*
+*.metaproj
+*.metaproj.*
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Logs
+*.log
+
+# NPM Packages
+node_modules/
+
+# Environment variables
+.env
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# DotNet specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nuget.props
+*.nuget.targets
+
+# Backup & Report files
+*.bak
+*.swp
+*.tmp
+*.temp
+*.tmp.*
+
+# Resharper
+_ReSharper.Caches/
+
+# StyleCop
+StyleCopReport.xml
+
+# File-based project references
+*.csproj.user
+*.vbproj.user
+*.dbmdl
+*.dbproj.user
+*.pfx
+*.publishsettings
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# IIS Express
+.iisexpress/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows Store app package directories and files
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt

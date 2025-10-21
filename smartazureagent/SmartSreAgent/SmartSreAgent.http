@@ -1,0 +1,6 @@
+@SmartSreAgent_HostAddress = http://localhost:5191
+
+GET {{SmartSreAgent_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
