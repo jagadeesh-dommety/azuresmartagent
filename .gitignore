@@ -1,0 +1,30 @@
+# Ignore bin and obj directories
+bin/
+obj/
+
+# Ignore all other files except source code
+# Uncomment and adjust the following lines as needed for your project
+
+# Ignore all files
+# *
+
+# Allow source code files (example for C#, adjust for your language)
+# !*.cs
+# !*.csproj
+# !*.sln
+
+# Ignore user-specific files
+*.user
+*.suo
+*.log
+
+# Ignore build outputs
+*.dll
+*.exe
+*.pdb
+
+# Ignore package directories
+packages/
+node_modules/
+dist/
+out/

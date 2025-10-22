@@ -6,16 +6,20 @@ namespace SmartSreAgent;
 public class CosmosMetricsBackgroundWorker : BackgroundService
 {
     private readonly CosmosMetricsCollector CosmosMetricsCollector;
-    public CosmosMetricsBackgroundWorker(CosmosMetricsCollector cosmosMetricsCollector)
+    private readonly CosmosConfigCollector CosmosConfigCollector;
+    public CosmosMetricsBackgroundWorker(CosmosMetricsCollector cosmosMetricsCollector, CosmosConfigCollector cosmosConfigCollector)
     {
         this.CosmosMetricsCollector = cosmosMetricsCollector;
+        this.CosmosConfigCollector = cosmosConfigCollector;
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
             Console.WriteLine($"CosmosMetricsBackgroundWorker is running. {DateTimeOffset.Now}");
-            this.CosmosMetricsCollector.CollectCosmosDbMetrics();
+            await this.CosmosMetricsCollector.CollectCosmosDbMetrics();
+            await this.CosmosConfigCollector.CollectCosmosDbConfig();
+            await this.CosmosConfigCollector.GetAdvisorRecommendations();
             await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
         }
     }

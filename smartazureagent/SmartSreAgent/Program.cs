@@ -7,10 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<CosmosMetricsCollector>();
+builder.Services.AddSingleton<CosmosConfigCollector>();
 builder.Services.AddHostedService<CosmosMetricsBackgroundWorker>(provider =>
 {
     var collector = provider.GetRequiredService<CosmosMetricsCollector>();
-    return new CosmosMetricsBackgroundWorker(collector);
+    var configCollector = provider.GetRequiredService<CosmosConfigCollector>();
+    return new CosmosMetricsBackgroundWorker(collector, configCollector);
 });
 
 var app = builder.Build();

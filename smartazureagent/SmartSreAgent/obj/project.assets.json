@@ -38,6 +38,92 @@
           }
         }
       },
+      "Azure.Monitor.Query/1.7.1": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.47.1",
+          "System.ClientModel": "1.6.0"
+        },
+        "compile": {
+          "lib/net8.0/Azure.Monitor.Query.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Azure.Monitor.Query.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager/1.13.2": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.47.1"
+        },
+        "compile": {
+          "lib/net8.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Azure.ResourceManager.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager.Advisor/1.0.0-beta.5": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.44.1",
+          "Azure.ResourceManager": "1.13.0",
+          "System.ClientModel": "1.2.1",
+          "System.Text.Json": "6.0.11"
+        },
+        "compile": {
+          "lib/net8.0/Azure.ResourceManager.Advisor.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Azure.ResourceManager.Advisor.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager.CosmosDB/1.4.0-beta.13": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.47.1",
+          "Azure.ResourceManager": "1.13.2"
+        },
+        "compile": {
+          "lib/net8.0/Azure.ResourceManager.CosmosDB.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Azure.ResourceManager.CosmosDB.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Azure.ResourceManager.ResourceGraph/1.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.49.0",
+          "Azure.ResourceManager": "1.13.2"
+        },
+        "compile": {
+          "lib/net8.0/Azure.ResourceManager.ResourceGraph.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Azure.ResourceManager.ResourceGraph.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/8.0.13": {
         "type": "package",
         "dependencies": {
@@ -323,6 +409,22 @@
             "rid": "win"
           }
         }
+      },
+      "System.Text.Json/6.0.11": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/System.Text.Json.targets": {}
+        }
       }
     }
   },
@@ -365,6 +467,96 @@
         "lib/net8.0/Azure.Identity.xml",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Azure.Monitor.Query/1.7.1": {
+      "sha512": "HJnal+BIaBiuiba1p2X5lNyx6I+CnqcjEMNv19R1jtjas5hk9sdUcPmZOLaECFRExFBxLDc2xuLJkXmglFXQbg==",
+      "type": "package",
+      "path": "azure.monitor.query/1.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.monitor.query.1.7.1.nupkg.sha512",
+        "azure.monitor.query.nuspec",
+        "azureicon.png",
+        "lib/net8.0/Azure.Monitor.Query.dll",
+        "lib/net8.0/Azure.Monitor.Query.xml",
+        "lib/netstandard2.0/Azure.Monitor.Query.dll",
+        "lib/netstandard2.0/Azure.Monitor.Query.xml"
+      ]
+    },
+    "Azure.ResourceManager/1.13.2": {
+      "sha512": "+jFLIfQgrVjxMpFClUBS8/zPLiRMJ49UgdkrFH/wU74DCABmZs71n1K9sq6MuAz6hR0wJJsDP4Pxaz0iVwyzVg==",
+      "type": "package",
+      "path": "azure.resourcemanager/1.13.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.1.13.2.nupkg.sha512",
+        "azure.resourcemanager.nuspec",
+        "azureicon.png",
+        "lib/net8.0/Azure.ResourceManager.dll",
+        "lib/net8.0/Azure.ResourceManager.xml",
+        "lib/netstandard2.0/Azure.ResourceManager.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.xml"
+      ]
+    },
+    "Azure.ResourceManager.Advisor/1.0.0-beta.5": {
+      "sha512": "x8CuBy2kQEZ21vqXJI531Dp5SfyuH6cdUMEs91mBbMo/jMcQl+15/hHBIFu0sQz+rx/yK3MwwUvnkGfItX3OhA==",
+      "type": "package",
+      "path": "azure.resourcemanager.advisor/1.0.0-beta.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.advisor.1.0.0-beta.5.nupkg.sha512",
+        "azure.resourcemanager.advisor.nuspec",
+        "azureicon.png",
+        "lib/net8.0/Azure.ResourceManager.Advisor.dll",
+        "lib/net8.0/Azure.ResourceManager.Advisor.xml",
+        "lib/netstandard2.0/Azure.ResourceManager.Advisor.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.Advisor.xml"
+      ]
+    },
+    "Azure.ResourceManager.CosmosDB/1.4.0-beta.13": {
+      "sha512": "E0CxIeezCh+QaYCU/sZZ5bNZxlsTItUB6t+mdb7B73qhfVhLlRdSyBesvggwkJ7+xSe7FhMMNHWxXaIkXZUi8Q==",
+      "type": "package",
+      "path": "azure.resourcemanager.cosmosdb/1.4.0-beta.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.cosmosdb.1.4.0-beta.13.nupkg.sha512",
+        "azure.resourcemanager.cosmosdb.nuspec",
+        "azureicon.png",
+        "lib/net8.0/Azure.ResourceManager.CosmosDB.dll",
+        "lib/net8.0/Azure.ResourceManager.CosmosDB.xml",
+        "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.CosmosDB.xml"
+      ]
+    },
+    "Azure.ResourceManager.ResourceGraph/1.1.0": {
+      "sha512": "RzRpWId9HY0gv20LzgUjb3kzuf7U6yf1EPhdbwAEukib7V/ge0ao0mUAWuhOFK9sQ5+Qcj+LbyPA2CPsyx7Djw==",
+      "type": "package",
+      "path": "azure.resourcemanager.resourcegraph/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.resourcemanager.resourcegraph.1.1.0.nupkg.sha512",
+        "azure.resourcemanager.resourcegraph.nuspec",
+        "azureicon.png",
+        "lib/net8.0/Azure.ResourceManager.ResourceGraph.dll",
+        "lib/net8.0/Azure.ResourceManager.ResourceGraph.xml",
+        "lib/netstandard2.0/Azure.ResourceManager.ResourceGraph.dll",
+        "lib/netstandard2.0/Azure.ResourceManager.ResourceGraph.xml"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/8.0.13": {
@@ -1064,35 +1256,99 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "System.Text.Json/6.0.11": {
+      "sha512": "xqC1HIbJMBFhrpYs76oYP+NAskNVjc6v73HqLal7ECRDPIp4oRU5pPavkD//vNactCn9DA2aaald/I5N+uZ5/g==",
+      "type": "package",
+      "path": "system.text.json/6.0.11",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn3.11/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn3.11/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.0/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
+        "buildTransitive/netcoreapp3.1/System.Text.Json.targets",
+        "buildTransitive/netstandard2.0/System.Text.Json.targets",
+        "lib/net461/System.Text.Json.dll",
+        "lib/net461/System.Text.Json.xml",
+        "lib/net6.0/System.Text.Json.dll",
+        "lib/net6.0/System.Text.Json.xml",
+        "lib/netcoreapp3.1/System.Text.Json.dll",
+        "lib/netcoreapp3.1/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.6.0.11.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Azure.Identity >= 1.17.0",
+      "Azure.Monitor.Query >= 1.7.1",
+      "Azure.ResourceManager.Advisor >= 1.0.0-beta.5",
+      "Azure.ResourceManager.CosmosDB >= 1.4.0-beta.13",
+      "Azure.ResourceManager.ResourceGraph >= 1.1.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.13",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
   "packageFolders": {
-    "/Users/jagadeeshdommety/.nuget/packages/": {}
+    "C:\\Users\\jdommety\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj",
+      "projectUniqueName": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj",
       "projectName": "SmartSreAgent",
-      "projectPath": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj",
-      "packagesPath": "/Users/jagadeeshdommety/.nuget/packages/",
-      "outputPath": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/obj/",
+      "projectPath": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj",
+      "packagesPath": "C:\\Users\\jdommety\\.nuget\\packages\\",
+      "outputPath": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/jagadeeshdommety/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\jdommety\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "https://microsoft.pkgs.visualstudio.com/e8efa521-db8e-4531-9cd8-6923807c7e83/_packaging/Microsoft.Devices/nuget/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
@@ -1109,7 +1365,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1118,6 +1375,22 @@
           "Azure.Identity": {
             "target": "Package",
             "version": "[1.17.0, )"
+          },
+          "Azure.Monitor.Query": {
+            "target": "Package",
+            "version": "[1.7.1, )"
+          },
+          "Azure.ResourceManager.Advisor": {
+            "target": "Package",
+            "version": "[1.0.0-beta.5, )"
+          },
+          "Azure.ResourceManager.CosmosDB": {
+            "target": "Package",
+            "version": "[1.4.0-beta.13, )"
+          },
+          "Azure.ResourceManager.ResourceGraph": {
+            "target": "Package",
+            "version": "[1.1.0, )"
           },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
@@ -1147,7 +1420,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.406/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

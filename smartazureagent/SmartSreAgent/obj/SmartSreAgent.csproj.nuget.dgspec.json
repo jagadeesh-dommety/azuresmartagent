@@ -1,26 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj": {}
+    "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj": {}
   },
   "projects": {
-    "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj": {
+    "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj",
+        "projectUniqueName": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj",
         "projectName": "SmartSreAgent",
-        "projectPath": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/SmartSreAgent.csproj",
-        "packagesPath": "/Users/jagadeeshdommety/.nuget/packages/",
-        "outputPath": "/Users/jagadeeshdommety/Source/repos/Azure-Optimization-Agent/smartazureagent/SmartSreAgent/obj/",
+        "projectPath": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\SmartSreAgent.csproj",
+        "packagesPath": "C:\\Users\\jdommety\\.nuget\\packages\\",
+        "outputPath": "D:\\personal_repo\\AzureSmartAgent\\azuresmartagent\\smartazureagent\\SmartSreAgent\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/jagadeeshdommety/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\jdommety\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://microsoft.pkgs.visualstudio.com/e8efa521-db8e-4531-9cd8-6923807c7e83/_packaging/Microsoft.Devices/nuget/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -37,7 +42,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -46,6 +52,22 @@
             "Azure.Identity": {
               "target": "Package",
               "version": "[1.17.0, )"
+            },
+            "Azure.Monitor.Query": {
+              "target": "Package",
+              "version": "[1.7.1, )"
+            },
+            "Azure.ResourceManager.Advisor": {
+              "target": "Package",
+              "version": "[1.0.0-beta.5, )"
+            },
+            "Azure.ResourceManager.CosmosDB": {
+              "target": "Package",
+              "version": "[1.4.0-beta.13, )"
+            },
+            "Azure.ResourceManager.ResourceGraph": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -75,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.406/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
