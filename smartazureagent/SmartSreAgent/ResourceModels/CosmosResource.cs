@@ -4,6 +4,9 @@ public class CosmosResource : Resource
         : base(resourceId, resourceName, resourceType, subscriptionId, resourceGroupName)
     {
     }
+
+    public DateTime Timestamp { get; set; }  // Added for per-metric timestamp
+
     public double AvgRequestCharge { get; set; }
     public int ThrottledRequests { get; set; }
     public int FailedRequests { get; set; }
@@ -11,6 +14,6 @@ public class CosmosResource : Resource
 
     public override string ToString()
     {
-        return $"ResourceId: {ResourceId}, ResourceName: {ResourceName}, ResourceType: {ResourceType}, SubscriptionId: {SubscriptionId}, ResourceGroupName: {ResourceGroupName}, AvgRequestCharge: {AvgRequestCharge}, ThrottledRequests: {ThrottledRequests}, FailedRequests: {FailedRequests}, AvgLatencyMs: {AvgLatencyMs}";
+        return $"ResourceId: {ResourceId}, ResourceName: {ResourceName}, ResourceType: {ResourceType}, SubscriptionId: {SubscriptionId}, ResourceGroupName: {ResourceGroupName}, Timestamp: {Timestamp}, AvgRequestCharge: {AvgRequestCharge}, ThrottledRequests: {ThrottledRequests}, FailedRequests: {FailedRequests}, AvgLatencyMs: {AvgLatencyMs}";
     }
 }

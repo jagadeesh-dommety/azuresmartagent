@@ -77,6 +77,8 @@ by bin(TimeGenerated, 1m), Resource";
                 query: kql,
                 timeRange: new QueryTimeRange(TimeSpan.FromMinutes(10))
             );
+
+            List<CosmosResource> cosmosMetrics = new List<CosmosResource>();
             var table = response.Value.Table;
             foreach (var row in table.Rows)
             {
@@ -87,14 +89,31 @@ by bin(TimeGenerated, 1m), Resource";
                 var throttled = row["ThrottledRequests"];
                 var failed = row["FailedRequests"];
                 var latency = row["AvgLatencyMs"];
-
-                Console.WriteLine($"[{time}] {resource}");
-                Console.WriteLine($"  Total Requests: {totalReq}");
-                Console.WriteLine($"  Avg RU Charge: {avgRU}");
-                Console.WriteLine($"  Throttled: {throttled}");
-                Console.WriteLine($"  Failed: {failed}");
-                Console.WriteLine($"  Avg Latency (ms): {latency}");
-                Console.WriteLine();
+                var cosmosResource = new CosmosResource(
+                    resourceId: "/subscriptions/9487cd81-9520-47e2-941d-2cfc4dda3b30/resourceGroups/super-fans/providers/Microsoft.DocumentDb/databaseAccounts/super-fans-users",
+                    resourceName: "super-fans-users", // Extract from resource if needed
+                    resourceType: "Microsoft.DocumentDB/databaseAccounts",
+                    subscriptionId: "9487cd81-9520-47e2-941d-2cfc4dda3b30", // Extract from resource if needed
+                    resourceGroupName: "super-fans" // Extract from resource if needed
+                )
+                {
+                    Timestamp = DateTime.Parse(time.ToString()),
+                    AvgRequestCharge = Convert.ToDouble(avgRU),
+                    ThrottledRequests = Convert.ToInt32(throttled),
+                    FailedRequests = Convert.ToInt32(failed),
+                    AvgLatencyMs = Convert.ToDouble(latency)
+                };
+                cosmosMetrics.Add(cosmosResource);
+            }
+            if (cosmosMetrics.Count > 0)
+            {
+                var parquetWriter = new AzureDataLakeParquetWriter(
+                    storageAccountName: "smartmetrics",
+                    fileSystemName: "metrics",
+                    directoryPath: "resources"
+                );
+                await parquetWriter.WriteMetricsAsParquetAsync(cosmosMetrics);
+                Console.WriteLine($"Successfully wrote {cosmosMetrics.Count} Cosmos DB metrics to Parquet.");
             }
         }
         catch (System.Exception ex)
