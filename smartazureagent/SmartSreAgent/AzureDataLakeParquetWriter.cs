@@ -16,19 +16,19 @@ public class AzureDataLakeParquetWriter
     // Implementation for writing Parquet files to Azure Data Lake
     public AzureDataLakeParquetWriter(string storageAccountName, string fileSystemName, string directoryPath)
     {
-        dataLakeServiceClient = new DataLakeServiceClient(new Uri($"https://{storageAccountName}.dfs.core.windows.net"), new DefaultAzureCredential());
+        dataLakeServiceClient = new DataLakeServiceClient(new Uri($"https://{storageAccountName}.dfs.core.windows.net"), new AzureCliCredential());
         this.fileSystemName = fileSystemName;
         this.directoryPath = directoryPath;
         var endpoint = new Uri("https://ai-jagadeeshdommety5277ai983496962694.cognitiveservices.azure.com/openai/v1/");
         var model = "text-embedding-3-small";
 
         OpenAIClient client = new(
-    new System.ClientModel.ApiKeyCredential("YOUR_API_KEY_HERE"),
+    new System.ClientModel.ApiKeyCredential("<api key>"),
     new OpenAIClientOptions()
     {
         Endpoint = endpoint
     });
-
+//https://smartmetrics.blob.core.windows.net/metrics/resources/2025102316/36.parquet
    embeddingClient = client.GetEmbeddingClient(model);
     }
 
@@ -43,7 +43,8 @@ public class AzureDataLakeParquetWriter
                 new DataField<string>("SubscriptionId"),
                 new DataField<string>("ResourceGroupName"),
                 new DataField<DateTime>("Timestamp"),
-                new DataField<string>("MetricsJson")
+                new DataField<string>("MetricsJson"),
+                new DataField<string>("Embeddings")
             );
             // Prepare column-wise data for each field
             var resourceIdColumn = new DataColumn(
@@ -80,10 +81,13 @@ public class AzureDataLakeParquetWriter
                     m.AvgLatencyMs
                 })).ToArray()
             );
-
-            OpenAIEmbeddingCollection response = embeddingClient.GenerateEmbeddings(
-    new List<string> { "first phrase", "second phrase", "third phrase" }
-);
+            OpenAIEmbeddingCollection embeddings = embeddingClient.GenerateEmbeddings(
+                metrics.Select(m => m.ToString()).ToArray()
+            );
+            var embeddingsColumn = new DataColumn(
+                schema.GetDataFields()[7],
+                embeddings.Select(e => JsonSerializer.Serialize(e.ToFloats())).ToArray()
+            );
 
             var fileSystemClient = dataLakeServiceClient.GetFileSystemClient(fileSystemName);
             await fileSystemClient.CreateIfNotExistsAsync();
@@ -106,6 +110,7 @@ public class AzureDataLakeParquetWriter
                         await groupWriter.WriteColumnAsync(resourceGroupNameColumn);
                         await groupWriter.WriteColumnAsync(timestampColumn);
                         await groupWriter.WriteColumnAsync(metricsJsonColumn);
+                        await groupWriter.WriteColumnAsync(embeddingsColumn);
                     }
                 }
                 stream.Position = 0;
