@@ -1,130 +1,102 @@
-using System.Text.Json;
+using System.Threading.Tasks;
 using Azure.Identity;
 using Azure.Storage.Files.DataLake;
-using OpenAI;
+using Microsoft.Azure.Cosmos;
 using OpenAI.Embeddings;
-using Parquet;
-using Parquet.Data;
-using Parquet.Schema;
+using SmartSreAgent;
 
 public class AzureDataLakeParquetWriter
 {
-    private readonly DataLakeServiceClient dataLakeServiceClient;
-    private readonly string fileSystemName;
-    private readonly string directoryPath;
-    private readonly EmbeddingClient embeddingClient;
-    // Implementation for writing Parquet files to Azure Data Lake
-    public AzureDataLakeParquetWriter(string storageAccountName, string fileSystemName, string directoryPath)
-    {
-        dataLakeServiceClient = new DataLakeServiceClient(new Uri($"https://{storageAccountName}.dfs.core.windows.net"), new AzureCliCredential());
-        this.fileSystemName = fileSystemName;
-        this.directoryPath = directoryPath;
-        var endpoint = new Uri("https://ai-jagadeeshdommety5277ai983496962694.cognitiveservices.azure.com/openai/v1/");
-        var model = "text-embedding-3-small";
+    private readonly DataLakeServiceClient _dataLakeServiceClient;
+    private readonly string _fileSystemName;
+    private readonly string _directoryPath;
+    private readonly EmbeddingService _embeddingService;
+    private readonly RAGCosmos rAGCosmos;
 
-        OpenAIClient client = new(
-    new System.ClientModel.ApiKeyCredential("<api key>"),
-    new OpenAIClientOptions()
+    public AzureDataLakeParquetWriter(
+        string storageAccountName,
+        string fileSystemName,
+        string directoryPath,
+        RAGCosmos rAGCosmos)
     {
-        Endpoint = endpoint
-    });
-//https://smartmetrics.blob.core.windows.net/metrics/resources/2025102316/36.parquet
-   embeddingClient = client.GetEmbeddingClient(model);
+        _dataLakeServiceClient = new DataLakeServiceClient(
+            new Uri($"https://{storageAccountName}.dfs.core.windows.net"),
+            new AzureCliCredential());
+
+        _fileSystemName = fileSystemName;
+        _directoryPath = directoryPath;
+        _embeddingService = new EmbeddingService(
+            Constants.OpenAiEndpoint,
+            Constants.OpenAiApiKey,
+            Constants.OpenAiModel);
+        this.rAGCosmos = rAGCosmos;
     }
 
     public async Task WriteMetricsAsParquetAsync(List<CosmosResource> metrics)
     {
         try
         {
-            var schema = new ParquetSchema(
-                new DataField<string>("ResourceId"),
-                new DataField<string>("ResourceName"),
-                new DataField<string>("ResourceType"),
-                new DataField<string>("SubscriptionId"),
-                new DataField<string>("ResourceGroupName"),
-                new DataField<DateTime>("Timestamp"),
-                new DataField<string>("MetricsJson"),
-                new DataField<string>("Embeddings")
-            );
-            // Prepare column-wise data for each field
-            var resourceIdColumn = new DataColumn(
-                schema.GetDataFields()[0],
-                metrics.Select(m => m.ResourceId).ToArray()
-            );
-            var resourceNameColumn = new DataColumn(
-                schema.GetDataFields()[1],
-                metrics.Select(m => m.ResourceName).ToArray()
-            );
-            var resourceTypeColumn = new DataColumn(
-                schema.GetDataFields()[2],
-                metrics.Select(m => m.ResourceType).ToArray()
-            );
-            var subscriptionIdColumn = new DataColumn(
-                schema.GetDataFields()[3],
-                metrics.Select(m => m.SubscriptionId).ToArray()
-            );
-            var resourceGroupNameColumn = new DataColumn(
-                schema.GetDataFields()[4],
-                metrics.Select(m => m.ResourceGroupName).ToArray()
-            );
-            var timestampColumn = new DataColumn(
-                schema.GetDataFields()[5],
-                metrics.Select(m => m.Timestamp).ToArray()
-            );
-            var metricsJsonColumn = new DataColumn(
-                schema.GetDataFields()[6],
-                metrics.Select(m => JsonSerializer.Serialize(new
-                {
-                    m.AvgRequestCharge,
-                    m.ThrottledRequests,
-                    m.FailedRequests,
-                    m.AvgLatencyMs
-                })).ToArray()
-            );
-            OpenAIEmbeddingCollection embeddings = embeddingClient.GenerateEmbeddings(
-                metrics.Select(m => m.ToString()).ToArray()
-            );
-            var embeddingsColumn = new DataColumn(
-                schema.GetDataFields()[7],
-                embeddings.Select(e => JsonSerializer.Serialize(e.ToFloats())).ToArray()
-            );
+            // Generate embeddings using EmbeddingService
+            var embeddings = _embeddingService.GenerateEmbeddings(
+                metrics.Select(m => m.ToString()).ToArray());
 
-            var fileSystemClient = dataLakeServiceClient.GetFileSystemClient(fileSystemName);
-            await fileSystemClient.CreateIfNotExistsAsync();
-            var timestamp = DateTime.UtcNow;
-            var hourDirectoryPath = $"{directoryPath}/{timestamp:yyyyMMddHH}";
-            var directoryClient = fileSystemClient.GetDirectoryClient(hourDirectoryPath);
-            await directoryClient.CreateIfNotExistsAsync();
-            var fileClient = directoryClient.GetFileClient($"{timestamp:mm}.parquet");
+            // Prepare Parquet stream
+            using var stream = new MemoryStream();
+            await ParquetUtils.WriteMetricsToParquet(stream, metrics, embeddings);
 
-            using (var stream = new MemoryStream())
+            // Upload to Data Lake
+            await UploadToDataLakeAsync(stream);
+
+            var texts = metrics.Select(m => m.ToString()).ToArray();  // 10 strings
+
+            var docs = new List<EmbeddingDocument>();
+            for (int i = 0; i < metrics.Count; i++)
             {
-                using (var parquetWriter = await ParquetWriter.CreateAsync(schema, stream))
-                {
-                    using (var groupWriter = parquetWriter.CreateRowGroup())
-                    {
-                        await groupWriter.WriteColumnAsync(resourceIdColumn);
-                        await groupWriter.WriteColumnAsync(resourceNameColumn);
-                        await groupWriter.WriteColumnAsync(resourceTypeColumn);
-                        await groupWriter.WriteColumnAsync(subscriptionIdColumn);
-                        await groupWriter.WriteColumnAsync(resourceGroupNameColumn);
-                        await groupWriter.WriteColumnAsync(timestampColumn);
-                        await groupWriter.WriteColumnAsync(metricsJsonColumn);
-                        await groupWriter.WriteColumnAsync(embeddingsColumn);
-                    }
-                }
-                stream.Position = 0;
-                await fileClient.UploadAsync(stream, overwrite: true);
+                var doc = new EmbeddingDocument(metrics[i], embeddings.ElementAt(i).ToFloats().ToArray(), "CosmosDB");  // One doc per minute
+                docs.Add(doc);
             }
 
+            // Batch insert to Cosmos
+            var tasks = docs.Select(doc => rAGCosmos.CreateItemAsync(doc));
+            await Task.WhenAll(tasks);  // ~5-10 RU total for batch
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
-            Console.WriteLine($"Error writing Parquet file: {ex.Message}");
+            Console.WriteLine($"[Error] Failed to write metrics to Parquet: {ex.Message}");
             throw;
         }
-
-
     }
 
+    private async Task UploadToDataLakeAsync(Stream parquetStream)
+    {
+        var fileSystemClient = _dataLakeServiceClient.GetFileSystemClient(_fileSystemName);
+        await fileSystemClient.CreateIfNotExistsAsync();
+
+        var timestamp = DateTime.UtcNow;
+        var hourDirectoryPath = $"{_directoryPath}/{timestamp:yyyyMMddHH}";
+        var directoryClient = fileSystemClient.GetDirectoryClient(hourDirectoryPath);
+        await directoryClient.CreateIfNotExistsAsync();
+
+        var fileClient = directoryClient.GetFileClient($"{timestamp:mm}.parquet");
+
+        parquetStream.Position = 0;
+        await fileClient.UploadAsync(parquetStream, overwrite: true);
+
+        Console.WriteLine($"[Info] Parquet file uploaded to {hourDirectoryPath}/{timestamp:mm}.parquet");
+    }
+}
+
+public class EmbeddingService
+{
+    private readonly AzureOpenAIClient _azureOpenAIClient;
+
+    public EmbeddingService(string openAiEndpoint, string openAiApiKey, string openAiModel)
+    {
+        _azureOpenAIClient = new AzureOpenAIClient(openAiEndpoint, openAiApiKey, openAiModel);
+    }
+
+    public OpenAIEmbeddingCollection GenerateEmbeddings(string[] inputs)
+    {
+        return _azureOpenAIClient.GenerateEmbeddings(inputs);
+    }
 }

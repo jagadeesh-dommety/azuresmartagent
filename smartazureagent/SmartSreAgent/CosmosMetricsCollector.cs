@@ -12,9 +12,11 @@ public class CosmosMetricsCollector
 {
      private readonly LogsQueryClient _logsClient;
     private readonly AzureCliCredential managedIdentity;
+    private readonly AzureDataLakeParquetWriter parquetWriter;
     private const string currentworkspaceId = "/subscriptions/9487cd81-9520-47e2-941d-2cfc4dda3b30/resourcegroups/appsvc_windows_centralus_basic/providers/microsoft.operationalinsights/workspaces/workspace-superfans-net";
-    public CosmosMetricsCollector()
+    public CosmosMetricsCollector(AzureDataLakeParquetWriter parquetWriter)
     {
+        this.parquetWriter = parquetWriter;
         managedIdentity = new AzureCliCredential();
         _logsClient = new LogsQueryClient(managedIdentity);
     }    public async Task InitialSetup()
@@ -107,11 +109,7 @@ by bin(TimeGenerated, 1m), Resource";
             }
             if (cosmosMetrics.Count > 0)
             {
-                var parquetWriter = new AzureDataLakeParquetWriter(
-                    storageAccountName: "smartmetrics",
-                    fileSystemName: "metrics",
-                    directoryPath: "resources"
-                );
+                
                 await parquetWriter.WriteMetricsAsParquetAsync(cosmosMetrics);
                 Console.WriteLine($"Successfully wrote {cosmosMetrics.Count} Cosmos DB metrics to Parquet.");
             }

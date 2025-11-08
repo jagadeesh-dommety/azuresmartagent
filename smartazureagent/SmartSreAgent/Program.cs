@@ -14,7 +14,20 @@ builder.Services.AddHostedService<CosmosMetricsBackgroundWorker>(provider =>
     var configCollector = provider.GetRequiredService<CosmosConfigCollector>();
     return new CosmosMetricsBackgroundWorker(collector, configCollector);
 });
-
+builder.Services.AddSingleton<AzureDataLakeParquetWriter>(provider =>
+{
+var storageAccountName = "smartmetrics";
+var fileSystemName = "metrics";
+var directoryPath = "resources";
+return new AzureDataLakeParquetWriter(storageAccountName, fileSystemName, directoryPath,
+    provider.GetRequiredService<RAGCosmos>());
+});
+builder.Services.AddSingleton<RAGCosmos>(provider =>
+{
+    var logger = provider.GetRequiredService<ILogger<RAGCosmos>>();
+    var cosmosConfig = builder.Configuration.GetSection("RAGCosmosDB").Get<CosmosDBConfig>();
+    return new RAGCosmos(cosmosConfig, logger);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
